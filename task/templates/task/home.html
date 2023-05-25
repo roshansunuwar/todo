@@ -11,12 +11,13 @@
 </head>
 
 <body>
+    {% block body_block %}
     <h2>To Do List</h2>
     <form action="/" method="POST">
         {% csrf_token %}
         {{ form.title }}
         <br>
-        <input type="submit" name="Create Task" />
+        <input class="fill" type="submit" name="Create Task" />
     </form>
     {% for task in tasks %}
     <div class="container">
@@ -25,19 +26,20 @@
             <a class="update" href="{% url 'update' task.id%}">Update</a>
             <a class="delete" href="{% url 'delete' task.id%}">Delete</a>
             <strike>{{ task }}</strike>
-            {% else %}
-            <div class="done">
-                <a class="update" href="{% url 'update' task.id%}">Update</a>
-                <a class="delete" href="{% url 'delete' task.id%}">Delete</a>
-                <span>{{ task }}</span>
-            </div>
-            {% endif %}
         </div>
+        {% else %}
+        <div class="done">
+            <a class="update" href="{% url 'update' task.id%}">Update</a>
+            <a class="delete" href="{% url 'delete' task.id%}">Delete</a>
+            <span>{{ task }}</span>
+        </div>
+        {% endif %}
+    </div>
 
     </div>
-    {% endfor %} 
+    {% endfor %}
     <img src="{% static 'task/images/apple.png' %}" alt="">
-
+    {% endblock %}
 </body>
 
 </html>
