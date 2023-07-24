@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{% static 'task/images/todo.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'task/css/style.css' %}">
+    <title>todo</title>
+</head>
+
+<body>
+    {% block body_block %}
+    <h2>To Do List</h2>
+    <form action="/" method="POST">
+        {% csrf_token %}
+        {{ form.title }}
+        <br>
+        <input class="fill" type="submit" name="Create Task" />
+    </form>
+    {% for task in tasks %}
+    <div class="container">
+        <div class="done">
+            {% if task.completed == True %}
+            <a class="update" href="{% url 'update' task.id%}">Update</a>
+            <a class="delete" href="{% url 'delete' task.id%}">Delete</a>
+            <strike>{{ task }}</strike>
+        </div>
+        {% else %}
+        <div class="done">
+            <a class="update" href="{% url 'update' task.id%}">Update</a>
+            <a class="delete" href="{% url 'delete' task.id%}">Delete</a>
+            <span>{{ task }}</span>
+        </div>
+        {% endif %}
+    </div>
+
+    </div>
+    {% endfor %}
+    <img src="{% static 'task/images/apple.png' %}" alt="">
+    {% endblock %}
+</body>
+
+</html>

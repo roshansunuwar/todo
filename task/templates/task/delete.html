@@ -1,0 +1,9 @@
+{% extends 'task/home.html' %}
+{% block body_block %}
+<p>Are you sure you want to delete "<strong>{{ item }}</strong>"</p>
+<form action="" method="post">
+    {% csrf_token %}
+    <input class="confirm" type="submit" value="Confirm">
+    <a class= "cancel" href="{% url 'task'%}">Cancel</a>
+</form>
+{% endblock %}
